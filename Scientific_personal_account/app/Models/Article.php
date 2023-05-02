@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Articles extends Model
+class Article extends Model
 {
     use HasFactory;
 
@@ -14,5 +14,6 @@ class Articles extends Model
         'title',
         'mentor',
         'uniqueness',
+        'path',
     ];
 }

@@ -11,17 +11,6 @@
       <nav class="navbar navbar-expand-md navbar-light;" style="background: #343A40; padding-left: 16px">
         <a class="navbar-brand" href="#" style="color: white">НЛК</a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Портфолио</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Рейтинг</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Помощь</a>
-            </li>
-          </ul>
         </div>
         <form action="{{ route('logout') }}" method="GET">
             <button class="btn btn-sm btn-outline-primary" type="submit" value="1" style="margin-right: 20px;">Выйти</button>
@@ -36,7 +25,9 @@
                 об их уникальности и смотреть<br> отзывы 
                 ваших научных руководителей.
             </p>
-            <button type="button" class="btn btn-primary" style="margin-top: 16px;">Добавить работу</button>
+            <form action="{{ route('article') }}" method="GET">
+              <button type="submit" class="btn btn-primary" style="margin-top: 16px;">Добавить работу</button>
+            </form>
         </div>
           <div class="secondContainer" style="padding-left: 55px">
             <div class="row"></div>
@@ -44,10 +35,10 @@
                 <div class="card" style="margin-left: 24px; position: inherit;">
                   <p class="cardName" style="font-weight: 400;">Ваш профиль</p>
                   <div class="card-body">
-                    <h5 class="card-title">Сергей Павлович Фролов</h5>
+                    <h5 class="card-title">{{ $fullName }}</h5>
                     <p class="card-text">
-                      <strong>Научная степень:</strong> Магистр. <br>
-                      <strong>Специализация:</strong> Инвестиционные проблемы <br> экономически развивающихся рынков.
+                      <strong>Научная степень:</strong> {{ $qualification }} <br>
+                      <strong>Специализация:</strong> {{ $specialisation }}
                     </p>
                     <a href="#" class="btn btn-primary" style="margin-top: 16px;">Редактировать</a>
                   </div>
@@ -59,9 +50,9 @@
                   <p class="cardName">Статистика</p>
                   <div class="card-body">
                     <p class="card-text">
-                      <strong>На платформе:</strong> 2 года. <br>
-                      <strong>Добавлено работ:</strong> 10. <br>
-                      <strong>Средняя уникальность:</strong> 75%. <br>
+                      <strong>На платформе:</strong> {{ $timeOnSite }} дней <br>
+                      <strong>Добавлено работ:</strong> {{ $worksNumber }} <br>
+                      <strong>Средняя уникальность:</strong> {{ $avgUniq }}% <br>
                   </div>
                 </div>
               </div>
@@ -77,75 +68,25 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @foreach($articles as $article)
                     <tr>
-                      <td scope="row"> <a href="#">Привлечение инвестиций как фактор развития экономики</a></td>
-                      <td>21.05.2019</td>
-                      <td> <a href="#">Асаншоева А.М.</a></td>
-                      <td> <a href="#">89%</a></td>
+                      <td scope="row"> <a href="{{ $article->path }}">{{ $article->title }}</a></td>
+                      <td>{{ $article->created_at }}</td>
+                      <td>{{ $article->title }}</td>
+                      <td>{{$article->uniqueness}}</td>
+                      <img src="/home/gv1don/Documents/Programming/Git/Scientific_personal_account/Scientific_personal_account/public/media/1906791.png">
                     </tr>
-                    <tr>
-                      <td scope="row"> <a href="#">The role of accounting in sustainable development</a></td>
-                      <td>11.02.2019</td>
-                      <td><a href="#">Шаляпина В.С.</a></td>
-                      <td><a href="#">78%</a></td>
-                    </tr>
-                    <tr>
-                      <td scope="row"> <a href="#">Сценарный анализ как инструмент учета рисков инвестиционного
-                        проекта</a></td>
-                      <td>05.09.2018</td>
-                      <td><a href="#">Васильев М.Г.</a></td>
-                      <td><a href="#">67%</a></td>
-                    </tr>
-                    <tr>
-                      <td scope="row"><a href="#">Глобальные и региональные инвестиционные тенденции</a></td>
-                      <td>09.07.2018</td>
-                      <td><a href="#">Асаншоева А.М.</a></td>
-                      <td><a href="#">73%</a></td>
-                    </tr>
-                    <tr>
-                      <td scope="row"><a href="#">Systemic risks in financial markets</a></td>
-                      <td>18.05.2018</td>
-                      <td><a href="#">Леонидов В.Б.</a></td>
-                      <td><a href="#">77%</a></td>
-                    </tr>
-                    <tr>
-                      <td scope="row"><a href="#">The influence of tax regulation liberalisation on the domestic debt market</a></td>
-                      <td>09.03.2018</td>
-                      <td><a href="#">Шаляпина В.С.</a></td>
-                      <td><a href="#">82%</a></td>
-                    </tr>
-                    <tr>
-                      <td scope="row"><a href="#">Биткоин как новый вид инвестиций</a></td>
-                      <td>29.01.2018</td>
-                      <td><a href="#">Асаншоева А.М.</a></td>
-                      <td><a href="#">71%</a></td>
-                    </tr>
-                    <tr>
-                      <td scope="row"><a href="#">Проблема воспроизводства жилищного фонда в России</a></td>
-                      <td>08.11.2017</td>
-                      <td><a href="#">Васильев М.Г.</a></td>
-                      <td><a href="#">65%</a></td>
-                    </tr>
-                    <tr>
-                      <td scope="row"><a href="#">Влияние безработицы на экономику СНГ</a></td>
-                      <td>17.09.2017</td>
-                      <td><a href="#">Васильев М.Г.</a></td>
-                      <td><a href="#">68%</a></td>
-                    </tr>
-                    <tr>
-                      <td scope="row"><a href="#">Мировой валютный рынок Форекс</a></td>
-                      <td>02.07.2017</td>
-                      <td><a href="#">Васильев М.Г.</a></td>
-                      <td><a href="#">67%</a></td>
-                    </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>
 
             </div>
           </div>
-          <div class="contacts">
-            <p>© Научный личный кабинет. Все права защищены</p>
+          <div class=form-wrapper>
+            <div class="contacts">
+              <p>© Научный личный кабинет. Все права защищены</p>
+            </div>
           </div>
     </body>
 </html>

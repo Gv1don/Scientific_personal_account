@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('mentor');
             $table->string('uniqueness');
+            $table->string('path');
             $table->timestamps();
 
             $table->foreign('profile_id')->references('id')->on('profiles');

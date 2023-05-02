@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,14 +33,13 @@ Route::get('/login', function(){
 
 Route::post('login', [LoginController::class, 'login']);
 
-Route::get('/profile', function(){
-    if(Auth::check()){
-        return view('profile');
-    }
-    else{
-        return redirect()->route('login');
-    }
-})->name('profile');
+Route::get('/profile', [ProfileController::class, 'profileRendering'])->middleware('auth')->name('profile');
+
+Route::get('/article', function(){
+    return view('article_registration');
+})->name('article')->middleware('auth');
+
+Route::post('/article/create', [ArticleController::class, 'createArticle'])->middleware('auth')->name('article-create');
 
 Route::get('/logout', function(){
     Auth::logout();
