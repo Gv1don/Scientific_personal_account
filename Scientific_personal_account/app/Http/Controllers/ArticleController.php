@@ -26,10 +26,15 @@ class ArticleController extends Controller
                 $fileName = $file->getClientOriginalName();
                 $filePath = 'storage/' . $user->id . '/';
 
-                if(!file_exists($filePath)){
-                    mkdir(public_path($filePath), 0777, true);
+                if(file_exists(public_path($filePath . $fileName))){
+                    return redirect()->route('article');
+                } else {
+                    if(!file_exists(public_path($filePath))){
+                        mkdir(public_path($filePath), 0777, true);
+                    }
+                    $file->move(public_path($filePath), $fileName);
                 }
-
+                
                 $file->move(public_path($filePath), $fileName);
 
                 $article = new Article();

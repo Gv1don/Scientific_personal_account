@@ -9,7 +9,6 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
     <body class="bg-light">
-
         <div class="container">
         <div class="py-5 text-center">
             <h2>Создайте ваш профиль</h2>

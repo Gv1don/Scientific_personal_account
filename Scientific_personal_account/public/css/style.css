@@ -17,6 +17,19 @@ html, body {
   height: 100%;
   margin: 0;
 }
+
+table{
+    font-size: 20px; /* увеличение размера шрифта */
+}
+
+td{
+    padding: 10px; /* увеличение отступов */
+}
+
+th{
+    margin-left: auto;
+    margin-right: auto;
+}
 /*General style end*/
 
 /* login page style begin*/
@@ -33,21 +46,7 @@ html, body {
 
 /* login page style end*/
 
-/* account page begin */
-
-.falseBlock{
-    height: 56px;
-    margin: 0;
-}
-
-.header {
-    position: fixed;
-    background: #343A40;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-}
+/* profile page begin */
 
 .nav-link{
     color: #FFFFFF;
@@ -67,7 +66,7 @@ html, body {
 .firstContainer{
     justify-content: left;
     padding-left: 49px;
-    padding-top: 64px;
+    padding-top: 80px;
     padding-bottom: 64px;
     font-family: 'Roboto', sans-serif;
     background-color: #E9ECEF;
@@ -103,6 +102,24 @@ html, body {
     border-bottom: solid 1px #00000020;
 }
 
+.actionIcons{
+    margin-left: 30px;
+    display: flex;
+    flex-direction: row;
+}
+
+#trash{
+    margin-left: 10px;
+}
+
+#trash:hover{
+    color: #ac371f;
+}
+
+#edit:hover{
+    color: #3324b9;
+}
+
 .contacts{
     position: fixed;
     display: flex;
@@ -118,4 +135,4 @@ html, body {
     margin: 0;
 }
 
-/* account page end */
+/* profile page end */

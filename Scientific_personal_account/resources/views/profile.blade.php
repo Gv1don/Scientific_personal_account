@@ -5,11 +5,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
         <link rel="stylesheet" href="{{ asset('css/style.css')}}">
     </head>
     <body>
-      <nav class="navbar navbar-expand-md navbar-light;" style="background: #343A40; padding-left: 16px">
-        <a class="navbar-brand" href="#" style="color: white">НЛК</a>
+      <nav class="navbar navbar-expand-md navbar-light fixed-top" style="background: #343A40; padding-left: 16px">
+        <a class="navbar-brand" href="#" style="color: white">НЛК - Научный личный кабинет</a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
         </div>
         <form action="{{ route('logout') }}" method="GET">
@@ -18,12 +19,12 @@
       </nav>
         <div class="firstContainer">
             <p id="Портфолио">Портфолио</p>
-            <p>
+            <p class="col-5">
                 Это место, где собраны ваши научные 
-                публикации. Здесь вы можете добавлять<br> 
+                публикации. Здесь вы можете добавлять
                 свои научные работы, получать информацию 
-                об их уникальности и смотреть<br> отзывы 
-                ваших научных руководителей.
+                об их уникальности и просматривать содержимое 
+                работ при необходимости.
             </p>
             <form action="{{ route('article') }}" method="GET">
               <button type="submit" class="btn btn-primary" style="margin-top: 16px;">Добавить работу</button>
@@ -40,7 +41,9 @@
                       <strong>Научная степень:</strong> {{ $qualification }} <br>
                       <strong>Специализация:</strong> {{ $specialisation }}
                     </p>
-                    <a href="#" class="btn btn-primary" style="margin-top: 16px;">Редактировать</a>
+                    <form action="{{ route('edit-profile') }}" method="">
+                      <button class="btn btn-primary" style="margin-top: 16px;">Редактировать</button>
+                    </form>
                   </div>
                 </div>
               </div>
@@ -57,30 +60,33 @@
                 </div>
               </div>
 
-              <div class="col-lg-12 col-xs-6" style="overflow:auto">
-                <table class="table table-bordered">
+              <div style="margin-bottom: 80" class="col-lg-12 col-md-12 col-xs-12">
+                <table class="table">
                   <thead>
                     <tr>
-                      <th>Название работы</th>
-                      <th scope="col">Дата загрузки</th>
-                      <th scope="col">Научный руководитель</th>
-                      <th scope="col">Уникальность</th>
+                      <th class="col-4">Название работы</th>
+                      <th class="col-2 text-center">Дата загрузки</th>
+                      <th class="col-4 text-center">Научный руководитель</th>
+                      <th class="col-1 text-center">Уникальность</th>
+                      <th class="col-1"></th>
                     </tr>
                   </thead>
                   <tbody>
                     @foreach($articles as $article)
                     <tr>
-                      <td scope="row"> <a href="{{ $article->path }}">{{ $article->title }}</a></td>
-                      <td>{{ $article->created_at }}</td>
-                      <td>{{ $article->title }}</td>
-                      <td>{{$article->uniqueness}}</td>
-                      <img src="/home/gv1don/Documents/Programming/Git/Scientific_personal_account/Scientific_personal_account/public/media/1906791.png">
+                      <td class="col-4"> <a href="{{ $article->path }}">{{ Str::limit($article->title, 20) }}</a></td>
+                      <td class="col-2 text-center"> {{ Str::limit($article->created_at, 10, false)}}</td>
+                      <td class="col-4 text-center">{{ $article->mentor }}</td>
+                      <td class="col-1 text-center id="lastColumn"> <div>{{ $article->uniqueness }}</div> </td>
+                      <td class="col-1">
+                        <div class="actionIcons">
+                        </div>
+                      </td>
                     </tr>
                     @endforeach
                   </tbody>
                 </table>
               </div>
-
             </div>
           </div>
           <div class=form-wrapper>

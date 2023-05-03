@@ -5,6 +5,7 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ArticleController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,9 @@ Route::get('/registration', function(){
 Route::post('registration', [RegistrationController::class, 'registration']);
 
 Route::get('/login', function(){
+    if(Auth::check()){
+        return redirect()->route('profile');
+    }
     return view('login');
 })->name('login');
 
@@ -38,6 +42,10 @@ Route::get('/profile', [ProfileController::class, 'profileRendering'])->middlewa
 Route::get('/article', function(){
     return view('article_registration');
 })->name('article')->middleware('auth');
+
+Route::get('/profile/edit', [ProfileController::class, 'profileEditing'])->middleware('auth')->name('edit-profile');
+
+Route::post('/profile/update', [ProfileController::class, 'profileUpdating'])->middleware('auth')->name('profile-update');
 
 Route::post('/article/create', [ArticleController::class, 'createArticle'])->middleware('auth')->name('article-create');
 
