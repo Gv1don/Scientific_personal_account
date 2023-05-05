@@ -49,6 +49,12 @@ Route::post('/profile/update', [ProfileController::class, 'profileUpdating'])->m
 
 Route::post('/article/create', [ArticleController::class, 'createArticle'])->middleware('auth')->name('article-create');
 
+Route::get('article/edit', [ArticleController::class, 'editArticle'])->middleware('auth')->name('article-edit');
+
+Route::post('article/delete', [ArticleController::class, 'deleteArticle'])->middleware('auth')->name('article-delete');
+
+Route::post('article/update', [ArticleController::class, 'updateArticle'])->middleware('auth')->name('article-update');
+
 Route::get('/logout', function(){
     Auth::logout();
     return redirect()->route('login');

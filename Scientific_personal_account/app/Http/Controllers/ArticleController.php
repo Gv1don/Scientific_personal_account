@@ -26,16 +26,7 @@ class ArticleController extends Controller
                 $fileName = $file->getClientOriginalName();
                 $filePath = 'storage/' . $user->id . '/';
 
-                if(file_exists(public_path($filePath . $fileName))){
-                    return redirect()->route('article');
-                } else {
-                    if(!file_exists(public_path($filePath))){
-                        mkdir(public_path($filePath), 0777, true);
-                    }
-                    $file->move(public_path($filePath), $fileName);
-                }
-                
-                $file->move(public_path($filePath), $fileName);
+                $this->warehouse($filePath, $fileName, $file);
 
                 $article = new Article();
                 $article->path = $filePath . $fileName;
@@ -50,5 +41,63 @@ class ArticleController extends Controller
         }
 
         return redirect()->route('article');
+    }
+
+    public function editArticle(Request $request){
+
+        $article = $request->input('article_id');
+        $article = Article::find($article)->first(); 
+
+        return view('edit_article', compact('article'));
+    }
+
+    public function deleteArticle(Request $request){
+
+        $article = $request->input('article_id');
+        $article = Article::find($article);
+        $file = $article->path;
+
+        if (file_exists($file)){
+            unlink($file);
+        }
+
+        $article->delete();
+
+        return redirect()->route('profile');
+    }
+
+    public function updateArticle(Request $request){
+        
+        $id = $request->input('article_id');
+        $title = $request->input('title');
+        $mentor = $request->input('mentor');
+
+        $article = Article::where('id', $id)->first();
+        $article->title = $title;
+        $article->mentor = $mentor;
+        $file = $request->file('file');
+
+        if($file){
+            $this->warehouse($directory = substr($article->path, 0, strrpos($article->path, "/")), $file->getClientOriginalName(), $file);
+        }
+
+        $article->save();
+
+        return redirect()->route('profile');
+    }
+
+    public function warehouse($filePath, $fileName, $file){
+
+        if(file_exists(public_path($filePath . $fileName))){
+            return redirect()->route('profile');
+        }
+        else 
+        {
+            if(!file_exists(public_path($filePath))){
+                mkdir(public_path($filePath), 0777, true);
+            }
+
+            $file->move(public_path($filePath), $fileName);
+        }
     }
 }
